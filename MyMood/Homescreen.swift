@@ -24,7 +24,8 @@ struct Homescreen: View {
     
     @State private var selectedDate = Self.now
     @State private var isShowingDetailView = false
-
+    @State private var theId = 0
+    
     private static var now = Date()
     
     init(calendar: Calendar) {
@@ -43,7 +44,8 @@ struct Homescreen: View {
             VStack {
                 NavigationLink(
                     destination: ListOfDates(
-                        feelings: feelingsForDate(date: selectedDate)
+                        feelings: feelingsForDate(date: selectedDate),
+                        date: selectedDate
                     )
                         .environment(\.managedObjectContext, self.viewContext),
                     isActive: $isShowingDetailView) { EmptyView() }
@@ -60,14 +62,25 @@ struct Homescreen: View {
                     content: { date in
                         Button(action: {
                             isShowingDetailView = true
-                            selectedDate = date
+                            let now = Date()
+                            
+                            var selectedDateComponents = calendar.dateComponents(
+                                [.year, .month, .day, .hour, .minute, .second], from: date)
+                            let components = calendar.dateComponents(
+                                [.year, .month, .day, .hour, .minute, .second], from: now)
+                            
+                            selectedDateComponents.hour = components.hour
+                            selectedDateComponents.minute = components.minute
+                            selectedDateComponents.second = components.second
+                            
+                            selectedDate = calendar.date(from: selectedDateComponents)!
+                            
                         }) {
                             Rectangle()
                                 .padding(10)
                                 .foregroundColor(.clear)
                                 .background(
-                                    calendar.isDate(date, inSameDayAs: selectedDate) ? Color.red
-                                    : calendar.isDateInToday(date) ? .green
+                                    calendar.isDateInToday(date) ? .red
                                     : .blue
                                 )
                                 .cornerRadius(8)
@@ -153,6 +166,14 @@ struct Homescreen: View {
                     }
                 )
                     .equatable()
+                    .id(theId)
+                    .onAppear {
+                        // forces the view to refresh
+                        // If the user selected a day and added a feeling, navigating back to this screen will
+                        // cause the view to redraw itself since the id changed and then the little heart on the day
+                        // will appear
+                        theId += 1
+                    }
                 Spacer()
             }
             .padding()

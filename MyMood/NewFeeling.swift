@@ -11,7 +11,7 @@ import CoreData
 struct NewFeeling: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var newFeelings: Int32 = 0
-    @State private var date: Date = Date()
+    @State var date: Date
     
     let moods = ["angry","crying","cute","demon","disbelief","embarrassed","hungry","ill","kiss","laughing","joyful","exhilerated","love","money","neutral","puke","sad","sarcastic","shy","sick","sleep","content","expectant","smile","thinking","playful","tongue","flirty","wink",
         "wow"]
@@ -99,6 +99,6 @@ private let itemFormatter: DateFormatter = {
 
 struct NewFeeling_Previews: PreviewProvider {
     static var previews: some View {
-        NewFeeling().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        NewFeeling(date: Date()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

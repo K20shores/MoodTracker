@@ -11,6 +11,7 @@ struct ListOfDates: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var feelings: [Feeling]
+    var date: Date
 
     var body: some View {
             List {
@@ -29,7 +30,7 @@ struct ListOfDates: View {
                 }
                 ToolbarItem {
                     NavigationLink(
-                        destination: NewFeeling()
+                        destination: NewFeeling(date: date)
                             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     ) {
                         Label("Add Feeling", systemImage: "heart.fill")
@@ -43,7 +44,7 @@ struct ListOfDates: View {
                     }
                 }
             }
-            .navigationTitle("All Feelings on ")
+            .navigationTitle("All Feelings on \(date, formatter: FeelingFormatter)")
     }
 
     private func deleteFeelings(offsets: IndexSet) {
@@ -65,8 +66,10 @@ struct ListOfDates: View {
 struct ListOfDates_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            ListOfDates(feelings: Array(repeating: Feeling(), count: 10))
-                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            ListOfDates(
+                feelings: Array(repeating: Feeling(), count: 10),
+                date: Date()
+            ).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
 }
