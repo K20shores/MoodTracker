@@ -25,12 +25,13 @@ struct Homescreen: View {
     @State private var selectedDate = Self.now
     @State private var isShowingDetailView = false
     @State private var theId = 0
+    @State private var showAbout = false
     
     private static var now = Date()
     
     init(calendar: Calendar) {
         self.calendar = calendar
-        self.monthFormatter = DateFormatter(dateFormat: "MMMM", calendar: calendar)
+        self.monthFormatter = DateFormatter(dateFormat: "MMMM, yyyy", calendar: calendar)
         self.dayFormatter = DateFormatter(dateFormat: "d", calendar: calendar)
         self.weekDayFormatter = DateFormatter(dateFormat: "EEEEE", calendar: calendar)
         self.fullFormatter = DateFormatter(dateFormat: "MMMM dd, yyyy", calendar: calendar)
@@ -50,12 +51,6 @@ struct Homescreen: View {
                         .environment(\.managedObjectContext, self.viewContext),
                     isActive: $isShowingDetailView) { EmptyView() }
                 
-                Text("Selected date: ")
-                    .bold()
-                    .foregroundColor(.black) +
-                Text("\(fullFormatter.string(from: selectedDate))")
-                    .bold()
-                    .foregroundColor(.accentColor)
                 CalendarView(
                     calendar: calendar,
                     date: $selectedDate,
@@ -80,8 +75,8 @@ struct Homescreen: View {
                                 .padding(10)
                                 .foregroundColor(.clear)
                                 .background(
-                                    calendar.isDateInToday(date) ? .red
-                                    : .blue
+                                    calendar.isDateInToday(date) ? Theme.color4
+                                    : Theme.color2
                                 )
                                 .cornerRadius(8)
                                 .accessibilityHidden(true)
@@ -96,7 +91,7 @@ struct Homescreen: View {
                                                 Spacer()
                                                 Image(systemName: "heart.fill")
                                                     .resizable()
-                                                    .foregroundColor(dateHasRecordedFeelings(date: date) ? .green : .clear)
+                                                    .foregroundColor(dateHasRecordedFeelings(date: date) ? Theme.color1 : .clear)
                                                     .frame(width: iconSize, height: iconSize)
                                                     .padding(EdgeInsets(top: 5, leading: 0, bottom: 4, trailing: 5))
                                             }
@@ -134,7 +129,10 @@ struct Homescreen: View {
                             } label: {
                                 Label(
                                     title: { Text("Previous") },
-                                    icon: { Image(systemName: "chevron.left") }
+                                    icon: {
+                                        Image(systemName: "chevron.left")
+                                            .foregroundColor(Theme.color4)
+                                    }
                                 )
                                     .labelStyle(IconOnlyLabelStyle())
                                     .padding(.horizontal)
@@ -155,7 +153,10 @@ struct Homescreen: View {
                             } label: {
                                 Label(
                                     title: { Text("Next") },
-                                    icon: { Image(systemName: "chevron.right") }
+                                    icon: {
+                                        Image(systemName: "chevron.right")
+                                            .foregroundColor(Theme.color4)
+                                    }
                                 )
                                     .labelStyle(IconOnlyLabelStyle())
                                     .padding(.horizontal)
@@ -174,9 +175,39 @@ struct Homescreen: View {
                         // will appear
                         theId += 1
                     }
+                
+                NavigationLink(
+                    destination:
+                        RadarChart(
+                            data: makeList(Mood.moods.count),
+                            fillColor: Theme.color1,
+                            strokeColor: Theme.color1,
+                            divisions: 5,
+                            radiusBuffer: 10)
+                        )
+                {
+                    Text("Radar Chart")
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Theme.color2, lineWidth:1)
+                        )
+                        .foregroundColor(Theme.color2)
+                }
                 Spacer()
             }
             .padding()
+            .toolbar{
+                ToolbarItem{
+                    Button("About") {
+                        showAbout = true
+                    }
+                    .foregroundColor(.accentColor)
+                    .sheet(isPresented: $showAbout, content: {
+                        AboutView(showSheetView: $showAbout)
+                    })
+                }
+            }
         }
     }
     

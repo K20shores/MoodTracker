@@ -13,8 +13,7 @@ struct NewFeeling: View {
     @State private var newFeelings: Int32 = 0
     @State var date: Date
     
-    let moods = ["angry","crying","cute","demon","disbelief","embarrassed","hungry","ill","kiss","laughing","joyful","exhilerated","love","money","neutral","puke","sad","sarcastic","shy","sick","sleep","content","expectant","smile","thinking","playful","tongue","flirty","wink",
-        "wow"]
+    let moods = Array(Mood.moods.keys).sorted()
 
     var body: some View {
         let edgeSize: CGFloat = 35
@@ -54,13 +53,18 @@ struct NewFeeling: View {
             Spacer()
             
             Button(action: saveFeelings) {
-                Label("Save Feelings", systemImage: "heart.fill")
+                Label {
+                    Text("Save Feelings")
+                } icon: {
+                    Theme.Heart()
+                }
             }
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(.blue, lineWidth:1)
             )
+            
         }
     }
     

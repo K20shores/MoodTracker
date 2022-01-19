@@ -19,7 +19,10 @@
 		272D965D2787DF090029527E /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D965C2787DF090029527E /* Mood.swift */; };
 		272D965F2787F4340029527E /* ListOfDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D965E2787F4340029527E /* ListOfDates.swift */; };
 		272D9661278907110029527E /* Homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D9660278907110029527E /* Homescreen.swift */; };
-		27F11DFD278A62A700C10860 /* SquareGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F11DFC278A62A700C10860 /* SquareGrid.swift */; };
+		27467057279665B9000478D6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27467056279665B9000478D6 /* AboutView.swift */; };
+		2746B8B7279605E400233F96 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746B8B6279605E400233F96 /* Theme.swift */; };
+		2773DBB227966DA80059CA28 /* RadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773DBB127966DA80059CA28 /* RadarChart.swift */; };
+		27F183B9279615830046A7C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F183B8279615830046A7C1 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +58,12 @@
 		272D965C2787DF090029527E /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
 		272D965E2787F4340029527E /* ListOfDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfDates.swift; sourceTree = "<group>"; };
 		272D9660278907110029527E /* Homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homescreen.swift; sourceTree = "<group>"; };
-		27F11DFC278A62A700C10860 /* SquareGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareGrid.swift; sourceTree = "<group>"; };
+		27467056279665B9000478D6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		2746B8B6279605E400233F96 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		2773DBB127966DA80059CA28 /* RadarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChart.swift; sourceTree = SOURCE_ROOT; };
+		27F183B6279612CC0046A7C1 /* MyMood.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMood.entitlements; sourceTree = "<group>"; };
+		27F183B8279615830046A7C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		27F183BA279615910046A7C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F183B9279615830046A7C1 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +99,7 @@
 				272D962227829F770029527E /* MyMoodTests */,
 				272D962C27829F770029527E /* MyMoodUITests */,
 				272D960B27829F760029527E /* Products */,
+				27F183B7279615830046A7C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,15 +116,13 @@
 		272D960C27829F760029527E /* MyMood */ = {
 			isa = PBXGroup;
 			children = (
+				2746705B27966A15000478D6 /* Resources */,
+				2746705A279669E8000478D6 /* Controllers */,
+				27467059279669CC000478D6 /* Models */,
+				27467058279669BC000478D6 /* Views */,
+				27F183BA279615910046A7C1 /* Info.plist */,
+				27F183B6279612CC0046A7C1 /* MyMood.entitlements */,
 				272D960D27829F760029527E /* MyMoodApp.swift */,
-				272D965C2787DF090029527E /* Mood.swift */,
-				272D960F27829F760029527E /* NewFeeling.swift */,
-				272D9660278907110029527E /* Homescreen.swift */,
-				272D965E2787F4340029527E /* ListOfDates.swift */,
-				27F11DFC278A62A700C10860 /* SquareGrid.swift */,
-				272D961127829F770029527E /* Assets.xcassets */,
-				272D961627829F770029527E /* Persistence.swift */,
-				272D961827829F770029527E /* MyMood.xcdatamodeld */,
 				272D961327829F770029527E /* Preview Content */,
 			);
 			path = MyMood;
@@ -143,6 +151,52 @@
 				272D962F27829F770029527E /* MyMoodUITestsLaunchTests.swift */,
 			);
 			path = MyMoodUITests;
+			sourceTree = "<group>";
+		};
+		27467058279669BC000478D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2746B8B6279605E400233F96 /* Theme.swift */,
+				2773DBB127966DA80059CA28 /* RadarChart.swift */,
+				272D9660278907110029527E /* Homescreen.swift */,
+				272D965E2787F4340029527E /* ListOfDates.swift */,
+				27467056279665B9000478D6 /* AboutView.swift */,
+				272D960F27829F760029527E /* NewFeeling.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		27467059279669CC000478D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				272D965C2787DF090029527E /* Mood.swift */,
+				272D961827829F770029527E /* MyMood.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2746705A279669E8000478D6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				272D961627829F770029527E /* Persistence.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2746705B27966A15000478D6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				272D961127829F770029527E /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		27F183B7279615830046A7C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27F183B8279615830046A7C1 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,11 +331,13 @@
 			files = (
 				272D965F2787F4340029527E /* ListOfDates.swift in Sources */,
 				272D961A27829F770029527E /* MyMood.xcdatamodeld in Sources */,
-				27F11DFD278A62A700C10860 /* SquareGrid.swift in Sources */,
 				272D961727829F770029527E /* Persistence.swift in Sources */,
 				272D965D2787DF090029527E /* Mood.swift in Sources */,
+				27467057279665B9000478D6 /* AboutView.swift in Sources */,
 				272D961027829F760029527E /* NewFeeling.swift in Sources */,
 				272D960E27829F760029527E /* MyMoodApp.swift in Sources */,
+				2773DBB227966DA80059CA28 /* RadarChart.swift in Sources */,
+				2746B8B7279605E400233F96 /* Theme.swift in Sources */,
 				272D9661278907110029527E /* Homescreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,12 +496,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMood/MyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMood/Preview Content\"";
-				DEVELOPMENT_TEAM = W2W6L9RGQC;
+				DEVELOPMENT_TEAM = XT974JENV5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyMood/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -456,7 +514,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = self.MyMood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shores.MyMood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -469,12 +527,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMood/MyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMood/Preview Content\"";
-				DEVELOPMENT_TEAM = W2W6L9RGQC;
+				DEVELOPMENT_TEAM = XT974JENV5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyMood/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -485,7 +545,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = self.MyMood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shores.MyMood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

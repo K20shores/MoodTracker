@@ -33,14 +33,18 @@ struct ListOfDates: View {
                         destination: NewFeeling(date: date)
                             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     ) {
-                        Label("Add Feeling", systemImage: "heart.fill")
-                            .overlay(
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .padding(6)
-                            )
+                        Label {
+                            Text("Add Feeling")
+                        } icon: {
+                            Theme.Heart()
+                        }
+                        .overlay(
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.white)
+                                .padding(6)
+                        )
                     }
                 }
             }
@@ -69,7 +73,7 @@ struct ListOfDates_Previews: PreviewProvider {
             ListOfDates(
                 feelings: Array(repeating: Feeling(), count: 10),
                 date: Date()
-            ).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            )
         }
     }
 }
