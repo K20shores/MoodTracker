@@ -28,10 +28,3 @@ func RandomFeelings(_ n: Int, context: NSManagedObjectContext) -> [Feeling]
     }
     return feelings
 }
-
-let DefaultDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()

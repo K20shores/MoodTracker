@@ -52,3 +52,17 @@ let NavigationTitleFormater: DateFormatter = {
     formatter.timeStyle = .none
     return formatter
 }()
+
+let DefaultDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .medium
+    return formatter
+}()
+
+let TimeOnlyDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = .medium
+    return formatter
+}()

@@ -26,7 +26,7 @@ struct MoodRow: View {
                     .offset(x: Double(idx) * -imageSize * 0.99)
             }
             Spacer()
-            Text(feeling.timestamp!, formatter: DefaultDateFormatter)
+            Text(feeling.timestamp!, formatter: TimeOnlyDateFormatter)
         }
     }
     

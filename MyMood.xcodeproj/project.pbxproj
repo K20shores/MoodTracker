@@ -13,9 +13,6 @@
 		272D961527829F770029527E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 272D961427829F770029527E /* Preview Assets.xcassets */; };
 		272D961727829F770029527E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D961627829F770029527E /* Persistence.swift */; };
 		272D961A27829F770029527E /* MyMood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 272D961827829F770029527E /* MyMood.xcdatamodeld */; };
-		272D962427829F770029527E /* MyMoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D962327829F770029527E /* MyMoodTests.swift */; };
-		272D962E27829F770029527E /* MyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D962D27829F770029527E /* MyMoodUITests.swift */; };
-		272D963027829F770029527E /* MyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D962F27829F770029527E /* MyMoodUITestsLaunchTests.swift */; };
 		272D965D2787DF090029527E /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D965C2787DF090029527E /* Mood.swift */; };
 		272D965F2787F4340029527E /* ListOfMoods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D965E2787F4340029527E /* ListOfMoods.swift */; };
 		272D9661278907110029527E /* Homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D9660278907110029527E /* Homescreen.swift */; };
@@ -54,10 +51,7 @@
 		272D961627829F770029527E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		272D961927829F770029527E /* MyMood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyMood.xcdatamodel; sourceTree = "<group>"; };
 		272D961F27829F770029527E /* MyMoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyMoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		272D962327829F770029527E /* MyMoodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMoodTests.swift; sourceTree = "<group>"; };
 		272D962927829F770029527E /* MyMoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyMoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		272D962D27829F770029527E /* MyMoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMoodUITests.swift; sourceTree = "<group>"; };
-		272D962F27829F770029527E /* MyMoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		272D965C2787DF090029527E /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
 		272D965E2787F4340029527E /* ListOfMoods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfMoods.swift; sourceTree = "<group>"; };
 		272D9660278907110029527E /* Homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homescreen.swift; sourceTree = "<group>"; };
@@ -102,8 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				272D960C27829F760029527E /* MyMood */,
-				272D962227829F770029527E /* MyMoodTests */,
-				272D962C27829F770029527E /* MyMoodUITests */,
 				272D960B27829F760029527E /* Products */,
 				27F183B7279615830046A7C1 /* Frameworks */,
 			);
@@ -140,23 +132,6 @@
 				272D961427829F770029527E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		272D962227829F770029527E /* MyMoodTests */ = {
-			isa = PBXGroup;
-			children = (
-				272D962327829F770029527E /* MyMoodTests.swift */,
-			);
-			path = MyMoodTests;
-			sourceTree = "<group>";
-		};
-		272D962C27829F770029527E /* MyMoodUITests */ = {
-			isa = PBXGroup;
-			children = (
-				272D962D27829F770029527E /* MyMoodUITests.swift */,
-				272D962F27829F770029527E /* MyMoodUITestsLaunchTests.swift */,
-			);
-			path = MyMoodUITests;
 			sourceTree = "<group>";
 		};
 		27467058279669BC000478D6 /* Views */ = {
@@ -358,7 +333,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				272D962427829F770029527E /* MyMoodTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,8 +340,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				272D962E27829F770029527E /* MyMoodUITests.swift in Sources */,
-				272D963027829F770029527E /* MyMoodUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
