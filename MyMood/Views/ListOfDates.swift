@@ -15,11 +15,11 @@ struct ListOfDates: View {
 
     var body: some View {
             List {
-                ForEach(feelings) { Feeling in
+                ForEach(feelings) { feeling in
                     NavigationLink {
-                        Text("Feeling at \(Feeling.timestamp!, formatter: FeelingFormatter)")
+                        Text("Feeling at \(feeling.timestamp!, formatter: FeelingFormatter)")
                     } label: {
-                        Text(Feeling.timestamp!, formatter: FeelingFormatter)
+                        Text(feeling.timestamp!, formatter: FeelingFormatter)
                     }
                 }
                 .onDelete(perform: deleteFeelings)
@@ -31,7 +31,7 @@ struct ListOfDates: View {
                 ToolbarItem {
                     NavigationLink(
                         destination: NewFeeling(date: date)
-                            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                            .environment(\.managedObjectContext, viewContext)
                     ) {
                         Label {
                             Text("Add Feeling")
@@ -71,11 +71,24 @@ struct ListOfDates_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
             ListOfDates(
-                feelings: Array(repeating: Feeling(), count: 10),
+                feelings: RandomFeelings(5),
                 date: Date()
-            )
+            ).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
+}
+
+private func RandomFeelings(_ n: Int) -> [Feeling]
+{
+    var feelings : [Feeling] = []
+    
+    for _ in 1...n{
+        let feeling = Feeling()
+        feeling.timestamp = Date()
+        feeling.mood = 1234
+        feelings.append(feeling)
+    }
+    return feelings
 }
 
 

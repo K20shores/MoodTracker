@@ -183,7 +183,8 @@ struct Homescreen: View {
                             fillColor: Theme.color1,
                             strokeColor: Theme.color1,
                             divisions: 5,
-                            radiusBuffer: 10)
+                            radiusBuffer: 10,
+                            edgeImageNames: Array(Mood.moods.keys))
                         )
                 {
                     Text("Radar Chart")

@@ -15,14 +15,16 @@ struct RadarChart: View {
     let strokeColor: Color
     let divisions: Int
     let radiusBuffer: Double
+    let edgeImageNames: [String]
     
-    init(data: [Double], gridColor: Color = .gray, fillColor: Color = .blue, strokeColor: Color = .blue, divisions: Int = 10, radiusBuffer: Double = 0.0) {
+    init(data: [Double], gridColor: Color = .gray, fillColor: Color = .blue, strokeColor: Color = .blue, divisions: Int = 10, radiusBuffer: Double = 0.0, edgeImageNames: [String] = []) {
         self.data = data
         self.gridColor = gridColor
         self.fillColor = fillColor
         self.strokeColor = strokeColor
         self.divisions = divisions
         self.radiusBuffer = radiusBuffer
+        self.edgeImageNames = edgeImageNames
     }
     
     var body: some View {
@@ -35,14 +37,16 @@ struct RadarChart: View {
             context.fill(dataPath, with: .color(fillColor.opacity(0.3)))
             context.stroke(dataPath, with: .color(strokeColor), lineWidth: 2.0)
             
-            for (index, key_value) in Mood.moods.enumerated() {
-                var edge = edges[index]
-                let image = Image(key_value.key)
-                let imageEdgeSize = 20.0
-                edge.x -= imageEdgeSize / 2
-                edge.y -= imageEdgeSize / 2
-                let rect = CGRect(origin: edge, size: CGSize(width:imageEdgeSize, height:imageEdgeSize))
-                context.draw(image, in: rect)
+            if edgeImageNames.count > 0{
+                for idx in 0...data.count-1 {
+                    var edge = edges[idx]
+                    let image = Image(edgeImageNames[idx])
+                    let imageEdgeSize = 20.0
+                    edge.x -= imageEdgeSize / 2
+                    edge.y -= imageEdgeSize / 2
+                    let rect = CGRect(origin: edge, size: CGSize(width:imageEdgeSize, height:imageEdgeSize))
+                    context.draw(image, in: rect)
+                }
             }
         }.navigationBarTitle("Radar Chart")
     }
@@ -51,7 +55,6 @@ struct RadarChart: View {
         var edgeVertices: [CGPoint] = []
         
         let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - radiusBuffer
-        print("Edgepoints radius: \(radius)")
         for category in 1 ... categories {
             let edgePoint = CGPoint(x: rect.midX + cos(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius,
                                     y: rect.midY + sin(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius)
@@ -121,10 +124,12 @@ struct RadarChart_Previews: PreviewProvider {
     static var previews: some View {
         RadarChart(
             data: makeList(Mood.moods.count),
+            gridColor: Theme.color2,
             fillColor: Theme.color1,
             strokeColor: Theme.color1,
             divisions: 5,
-            radiusBuffer: 10
+            radiusBuffer: 10,
+            edgeImageNames: Array(Mood.moods.keys)
         )
             .padding()
     }
