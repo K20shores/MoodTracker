@@ -12,7 +12,7 @@ struct Homescreen: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Feeling.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Feeling.timestamp, ascending: false)],
         animation: .default)
     private var feelings: FetchedResults<Feeling>
     
@@ -44,7 +44,7 @@ struct Homescreen: View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination: ListOfDates(
+                    destination: ListOfMoods(
                         feelings: feelingsForDate(date: selectedDate),
                         date: selectedDate
                     )

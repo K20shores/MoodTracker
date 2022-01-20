@@ -77,4 +77,109 @@ struct Mood : OptionSet {
     {
         return moods[mood]!
     }
+    
+    static func MoodToStrings(from: Int32) -> [String]
+    {
+        return Mood.MoodToStrings(mood: Mood(rawValue: from))
+    }
+    
+    static func MoodToStrings(mood: Mood) -> [String]
+    {
+        var moods : [String] = []
+        
+        if none.rawValue & mood.rawValue != 0 {
+            moods.append("none")
+        }
+        if angry.rawValue & mood.rawValue != 0 {
+            moods.append("angry")
+        }
+        if crying.rawValue & mood.rawValue != 0 {
+            moods.append("crying")
+        }
+        if cute.rawValue & mood.rawValue != 0 {
+            moods.append("cute")
+        }
+        if demon.rawValue & mood.rawValue != 0 {
+            moods.append("demon")
+        }
+        if disbelief.rawValue & mood.rawValue != 0 {
+            moods.append("disbelief")
+        }
+        if embarrassed.rawValue & mood.rawValue != 0 {
+            moods.append("embarrassed")
+        }
+        if hungry.rawValue & mood.rawValue != 0 {
+            moods.append("hungry")
+        }
+        if ill.rawValue & mood.rawValue != 0 {
+            moods.append("ill")
+        }
+        if kiss.rawValue & mood.rawValue != 0 {
+            moods.append("kiss")
+        }
+        if laughing.rawValue & mood.rawValue != 0 {
+            moods.append("laughing")
+        }
+        if joyful.rawValue & mood.rawValue != 0 {
+            moods.append("joyful")
+        }
+        if exhilerated.rawValue & mood.rawValue != 0 {
+            moods.append("exhilerated")
+        }
+        if love.rawValue & mood.rawValue != 0 {
+            moods.append("love")
+        }
+        if money.rawValue & mood.rawValue != 0 {
+            moods.append("money")
+        }
+        if neutral.rawValue & mood.rawValue != 0 {
+            moods.append("neutral")
+        }
+        if puke.rawValue & mood.rawValue != 0 {
+            moods.append("puke")
+        }
+        if sad.rawValue & mood.rawValue != 0 {
+            moods.append("sad")
+        }
+        if sarcastic.rawValue & mood.rawValue != 0 {
+            moods.append("sarcastic")
+        }
+        if shy.rawValue & mood.rawValue != 0 {
+            moods.append("shy")
+        }
+        if sick.rawValue & mood.rawValue != 0 {
+            moods.append("sick")
+        }
+        if sleep.rawValue & mood.rawValue != 0 {
+            moods.append("sleep")
+        }
+        if content.rawValue & mood.rawValue != 0 {
+            moods.append("content")
+        }
+        if expectant.rawValue & mood.rawValue != 0 {
+            moods.append("expectant")
+        }
+        if smile.rawValue & mood.rawValue != 0 {
+            moods.append("smile")
+        }
+        if thinking.rawValue & mood.rawValue != 0 {
+            moods.append("thinking")
+        }
+        if playful.rawValue & mood.rawValue != 0 {
+            moods.append("playful")
+        }
+        if tongue.rawValue & mood.rawValue != 0 {
+            moods.append("tongue")
+        }
+        if flirty.rawValue & mood.rawValue != 0 {
+            moods.append("flirty")
+        }
+        if wink.rawValue & mood.rawValue != 0 {
+            moods.append("wink")
+        }
+        if wow.rawValue & mood.rawValue != 0 {
+            moods.append("wow")
+        }
+        return moods
+    }
 }

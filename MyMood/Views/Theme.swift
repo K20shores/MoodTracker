@@ -45,3 +45,10 @@ extension View {
         self.overlay(overlay).mask(self)
     }
 }
+
+let NavigationTitleFormater: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .none
+    return formatter
+}()

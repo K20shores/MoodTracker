@@ -116,10 +116,6 @@ struct RadarChart: View {
     }
 }
 
-func makeList(_ n: Int) -> [Double] {
-    return (0..<n).map{ _ in Double.random(in: 1 ... 20) }
-}
-
 struct RadarChart_Previews: PreviewProvider {
     static var previews: some View {
         RadarChart(

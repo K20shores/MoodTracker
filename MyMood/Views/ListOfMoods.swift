@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ListOfDates: View {
+struct ListOfMoods: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var feelings: [Feeling]
@@ -18,9 +18,12 @@ struct ListOfDates: View {
             List {
                 ForEach(feelings) { feeling in
                     NavigationLink {
-                        Text("Feeling at \(feeling.timestamp!, formatter: FeelingFormatter)")
+                        MoodGrid(mood: Binding.constant(feeling.mood))
+                            .padding()
+                        Text("Feeling at \(feeling.timestamp!, formatter: DefaultDateFormatter)")
                     } label: {
-                        Text(feeling.timestamp!, formatter: FeelingFormatter)
+                        MoodRow(feeling: feeling)
+//                        Text(feeling.timestamp!, formatter: DefaultDateFormatter)
                     }
                 }
                 .onDelete(perform: deleteFeelings)
@@ -31,7 +34,7 @@ struct ListOfDates: View {
                 }
                 ToolbarItem {
                     NavigationLink(
-                        destination: NewFeeling(date: date)
+                        destination: NewFeeling(timestamp: date)
                             .environment(\.managedObjectContext, viewContext)
                     ) {
                         Label {
@@ -49,7 +52,7 @@ struct ListOfDates: View {
                     }
                 }
             }
-            .navigationTitle("All Feelings on \(date, formatter: FeelingFormatter)")
+            .navigationTitle("Moods on \(date, formatter: NavigationTitleFormater)")
     }
 
     private func deleteFeelings(offsets: IndexSet) {
@@ -72,7 +75,7 @@ struct ListOfDates_Previews: PreviewProvider {
     static let context = PersistenceController.preview.container.viewContext
     static var previews: some View {
         NavigationView{
-            ListOfDates(
+            ListOfMoods(
                 feelings: RandomFeelings(5, context: context),
                 date: Date()
             )
@@ -80,24 +83,3 @@ struct ListOfDates_Previews: PreviewProvider {
         }
     }
 }
-
-func RandomFeelings(_ n: Int, context: NSManagedObjectContext) -> [Feeling]
-{
-    var feelings : [Feeling] = []
-    
-    for _ in 1...n{
-        let feeling = Feeling(context: context)
-        feeling.timestamp = Date()
-        feeling.mood = 1234
-        feelings.append(feeling)
-    }
-    return feelings
-}
-
-
-private let FeelingFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
