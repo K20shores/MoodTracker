@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ListOfDates: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -68,22 +69,24 @@ struct ListOfDates: View {
 }
 
 struct ListOfDates_Previews: PreviewProvider {
+    static let context = PersistenceController.preview.container.viewContext
     static var previews: some View {
         NavigationView{
             ListOfDates(
-                feelings: RandomFeelings(5),
+                feelings: RandomFeelings(5, context: context),
                 date: Date()
-            ).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            )
+                .environment(\.managedObjectContext, context)
         }
     }
 }
 
-private func RandomFeelings(_ n: Int) -> [Feeling]
+func RandomFeelings(_ n: Int, context: NSManagedObjectContext) -> [Feeling]
 {
     var feelings : [Feeling] = []
     
     for _ in 1...n{
-        let feeling = Feeling()
+        let feeling = Feeling(context: context)
         feeling.timestamp = Date()
         feeling.mood = 1234
         feelings.append(feeling)
