@@ -20,8 +20,28 @@ struct RadarChartDateSelector: View {
                     .padding(.horizontal)
             }
             Spacer()
-            RadarChartViewer(startDate: startDate, endDate: endDate)
+            TimestampFilteredMoods(startDate: startDate, endDate: endDate) { moods in
+                CreateRadarChart(moods: moods)
+            }
         }
+    }
+    
+    private func CreateRadarChart(moods: [Feeling]) -> some View {
+        var moodCounts: [String:Double] = Dictionary(uniqueKeysWithValues: zip(Array(Mood.moods.keys), Array(repeating: 0, count: Mood.moods.count)))
+        for mood in moods {
+            for moodString in Mood.MoodToStrings(from: mood.mood) {
+                moodCounts[moodString]! += 1
+            }
+        }
+        
+        return RadarChart(
+            data: Array(moodCounts.values),
+            fillColor: Theme.color1,
+            strokeColor: Theme.color1,
+            divisions: 5,
+            radiusBuffer: 10,
+            edgeImageNames: Array(moodCounts.keys)
+        )
     }
 }
 
