@@ -52,9 +52,6 @@ struct MoodGrid: View {
 struct MoodGrid_Previews: PreviewProvider {
     @State static var mood: Int32 = 222
     static var previews: some View {
-        MoodGrid(
-            mood: $mood, onTapGesture: onTapped
-        )
         MoodGrid(mood: $mood)
     }
     

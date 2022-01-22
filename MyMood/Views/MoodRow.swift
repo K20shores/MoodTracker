@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MoodRow: View {
     let feeling: Feeling
-    private let imageSize: CGFloat = 20
+    
     
     init(feeling: Feeling)
     {
@@ -20,10 +20,19 @@ struct MoodRow: View {
         let moods = Mood.MoodToStrings(mood: Mood(rawValue: feeling.mood))
         
         HStack {
-            ForEach(Array(moods.enumerated()), id: \.element) { idx, mood in
-                CircleImage(image: Image(mood))
-                    .frame(width: imageSize, height: imageSize)
-                    .offset(x: Double(idx) * -imageSize * 0.99)
+            GeometryReader { geo in
+                ScrollView(.horizontal) {
+                    HStack {
+                        let imageSize: CGFloat = geo.size.height * 0.5
+                        ForEach(Array(moods.enumerated()), id: \.element) { idx, mood in
+                            //                            let _ = print(idx, geo.size, 1 - idx / moods.count, Double(1 - idx / moods.count) * geo.size.width)
+                            CircleImage(image: Image(mood))
+                                .frame(width: imageSize, height: imageSize)
+                                .position(y: geo.size.height / 2)
+                            //                                .offset(x: Double(idx) * -imageSize * 0.95)
+                        }
+                    }.padding(.leading, 12)
+                }
             }
             Spacer()
             Text(feeling.timestamp!, formatter: TimeOnlyDateFormatter)
@@ -43,11 +52,23 @@ struct MoodRow: View {
 
 struct MoodRow_Previews: PreviewProvider {
     static var previews: some View {
-        Group{
+        List {
             MoodRow(
-                feeling: RandomFeeling(context: PersistenceController.preview.container.viewContext)
+                feeling: RandomFeeling()
+            )
+            MoodRow(
+                feeling: RandomFeeling()
+            )
+            MoodRow(
+                feeling: RandomFeeling()
+            )
+            MoodRow(
+                feeling: RandomFeeling()
+            )
+            MoodRow(
+                feeling: RandomFeeling()
             )
         }
-        .previewLayout(.fixed(width: 300, height: 70))
+//        .previewLayout(.fixed(width: 300, height: 70))
     }
 }

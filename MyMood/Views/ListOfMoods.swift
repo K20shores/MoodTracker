@@ -13,6 +13,12 @@ struct ListOfMoods: View {
     
     var feelings: [Feeling]
     var date: Date
+    
+    init(feelings: [Feeling], date: Date){
+        self.feelings = feelings
+        self.date = date
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont.systemFont(ofSize: 24)]
+    }
 
     var body: some View {
             List {
@@ -20,10 +26,10 @@ struct ListOfMoods: View {
                     NavigationLink {
                         MoodGrid(mood: Binding.constant(feeling.mood))
                             .padding()
-                        Text("Feeling at \(feeling.timestamp!, formatter: DefaultDateFormatter)")
+                        Text("Mood at \(feeling.timestamp!, formatter: DefaultDateFormatter)")
+                        Spacer()
                     } label: {
                         MoodRow(feeling: feeling)
-//                        Text(feeling.timestamp!, formatter: DefaultDateFormatter)
                     }
                 }
                 .onDelete(perform: deleteFeelings)
@@ -53,17 +59,15 @@ struct ListOfMoods: View {
                 }
             }
             .navigationTitle("Moods on \(date, formatter: NavigationTitleFormater)")
+
     }
 
     private func deleteFeelings(offsets: IndexSet) {
         withAnimation {
             offsets.map { feelings[$0] }.forEach(viewContext.delete)
-
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -76,7 +80,7 @@ struct ListOfDates_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
             ListOfMoods(
-                feelings: RandomFeelings(5, context: context),
+                feelings: RandomFeelings(5),
                 date: Date()
             )
                 .environment(\.managedObjectContext, context)

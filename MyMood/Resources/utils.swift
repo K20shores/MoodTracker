@@ -12,19 +12,19 @@ func makeList(_ n: Int) -> [Double] {
     return (0..<n).map{ _ in Double.random(in: 1 ... 20) }
 }
 
-func RandomFeeling(context: NSManagedObjectContext) -> Feeling {
-    let feeling = Feeling(context: context)
+func RandomFeeling() -> Feeling {
+    let feeling = Feeling(context: PersistenceController.preview.container.viewContext)
     feeling.timestamp = Date()
-    feeling.mood = 1234
+    feeling.mood = Int32.random(in: 1...Int32.max)
     return feeling
 }
 
-func RandomFeelings(_ n: Int, context: NSManagedObjectContext) -> [Feeling]
+func RandomFeelings(_ n: Int) -> [Feeling]
 {
     var feelings : [Feeling] = []
     
     for _ in 1...n{
-        feelings.append(RandomFeeling(context: context))
+        feelings.append(RandomFeeling())
     }
     return feelings
 }
