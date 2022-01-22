@@ -176,17 +176,7 @@ struct Homescreen: View {
                         theId += 1
                     }
                 
-                NavigationLink(
-                    destination:
-                        RadarChart(
-                            data: makeList(Mood.moods.count),
-                            fillColor: Theme.color1,
-                            strokeColor: Theme.color1,
-                            divisions: 5,
-                            radiusBuffer: 10,
-                            edgeImageNames: Array(Mood.moods.keys))
-                        )
-                {
+                NavigationLink(destination: RadarChartDateSelector()) {
                     Text("Radar Chart")
                         .padding()
                         .overlay(

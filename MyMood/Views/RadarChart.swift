@@ -90,12 +90,11 @@ struct RadarChart: View {
     }
     
     func radarChartPath(in rect: CGRect) -> Path {
-        guard
-            3 <= data.count,
-            let minimum = data.min(),
-            0 <= minimum,
-            let maximum = data.max()
-        else { return Path() }
+        if data.reduce(0, +) == 0 {
+            return Path()
+        }
+         
+        let maximum : Double = data.max()!
         
         let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - radiusBuffer
         var path = Path()
