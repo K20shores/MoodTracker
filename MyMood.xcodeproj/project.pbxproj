@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271130A0279C41470073BB35 /* RadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2711309F279C41470073BB35 /* RadarChart.swift */; };
 		272D960E27829F760029527E /* MyMoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D960D27829F760029527E /* MyMoodApp.swift */; };
 		272D961027829F760029527E /* NewFeeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D960F27829F760029527E /* NewFeeling.swift */; };
 		272D961227829F770029527E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 272D961127829F770029527E /* Assets.xcassets */; };
@@ -18,7 +19,6 @@
 		272D9661278907110029527E /* Homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D9660278907110029527E /* Homescreen.swift */; };
 		27467057279665B9000478D6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27467056279665B9000478D6 /* AboutView.swift */; };
 		2746B8B7279605E400233F96 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746B8B6279605E400233F96 /* Theme.swift */; };
-		2773DBB227966DA80059CA28 /* RadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773DBB127966DA80059CA28 /* RadarChart.swift */; };
 		27EAFDFC2798F8C900CCCB4D /* MoodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAFDFB2798F8C900CCCB4D /* MoodRow.swift */; };
 		27EAFDFE2798F91E00CCCB4D /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAFDFD2798F91E00CCCB4D /* utils.swift */; };
 		27EAFE022799068600CCCB4D /* MoodGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAFE012799068600CCCB4D /* MoodGrid.swift */; };
@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2711309F279C41470073BB35 /* RadarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadarChart.swift; sourceTree = "<group>"; };
 		272D960A27829F760029527E /* MyMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		272D960D27829F760029527E /* MyMoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMoodApp.swift; sourceTree = "<group>"; };
 		272D960F27829F760029527E /* NewFeeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeeling.swift; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		272D9660278907110029527E /* Homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homescreen.swift; sourceTree = "<group>"; };
 		27467056279665B9000478D6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2746B8B6279605E400233F96 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		2773DBB127966DA80059CA28 /* RadarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChart.swift; sourceTree = SOURCE_ROOT; };
 		27EAFDFB2798F8C900CCCB4D /* MoodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodRow.swift; sourceTree = "<group>"; };
 		27EAFDFD2798F91E00CCCB4D /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		27EAFE012799068600CCCB4D /* MoodGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodGrid.swift; sourceTree = "<group>"; };
@@ -137,9 +137,9 @@
 		27467058279669BC000478D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2711309F279C41470073BB35 /* RadarChart.swift */,
 				27EAFDFB2798F8C900CCCB4D /* MoodRow.swift */,
 				2746B8B6279605E400233F96 /* Theme.swift */,
-				2773DBB127966DA80059CA28 /* RadarChart.swift */,
 				272D9660278907110029527E /* Homescreen.swift */,
 				272D965E2787F4340029527E /* ListOfMoods.swift */,
 				27467056279665B9000478D6 /* AboutView.swift */,
@@ -322,10 +322,10 @@
 				27467057279665B9000478D6 /* AboutView.swift in Sources */,
 				272D961027829F760029527E /* NewFeeling.swift in Sources */,
 				272D960E27829F760029527E /* MyMoodApp.swift in Sources */,
-				2773DBB227966DA80059CA28 /* RadarChart.swift in Sources */,
 				2746B8B7279605E400233F96 /* Theme.swift in Sources */,
 				272D9661278907110029527E /* Homescreen.swift in Sources */,
 				27EAFDFC2798F8C900CCCB4D /* MoodRow.swift in Sources */,
+				271130A0279C41470073BB35 /* RadarChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
