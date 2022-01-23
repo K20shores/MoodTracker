@@ -46,9 +46,7 @@ struct NewFeeling: View {
     
     private func onMoodTapped(_ mood:String){
         let parsedMood = Mood.stringToMood(mood: mood)
-        print($timestamp, "Tapped " + mood, parsedMood)
         self.mood ^= parsedMood.rawValue
-        print(String(self.mood, radix: 2))
     }
     
     private func saveFeelings(){

@@ -17,6 +17,16 @@ struct RadarChart: View {
     let radiusBuffer: Double
     let edgeImageNames: [String]
     
+    private let radialOffset = -1 * CGFloat.pi / 2
+    
+    var angles : [CGFloat] {
+        var _angles: [CGFloat] = []
+        for index in 1...data.count {
+            _angles.append(2 * .pi * CGFloat(index) / CGFloat(data.count) + radialOffset)
+        }
+        return _angles
+    }
+    
     init(data: [Double], gridColor: Color = .gray, fillColor: Color = .blue, strokeColor: Color = .blue, divisions: Int = 10, radiusBuffer: Double = 0.0, edgeImageNames: [String] = []) {
         self.data = data
         self.gridColor = gridColor
@@ -29,39 +39,34 @@ struct RadarChart: View {
     
     var body: some View {
         Canvas { context, size in
-            let edges = calculateEdgePoints(rect: context.clipBoundingRect, categories: data.count)
+            let vertices = calculateVertices(rect: context.clipBoundingRect)
             let radarCharGridPath = radarChartGridPath(in: context.clipBoundingRect, categories: data.count)
             let dataPath = radarChartPath(in: context.clipBoundingRect)
+            let imageEdgeSize = 20.0
             
             context.stroke(radarCharGridPath, with: .color(gridColor), lineWidth: 0.5)
             context.fill(dataPath, with: .color(fillColor.opacity(0.3)))
             context.stroke(dataPath, with: .color(strokeColor), lineWidth: 2.0)
             
-            if edgeImageNames.count > 0{
-                for idx in 0...data.count-1 {
-                    var edge = edges[idx]
-                    let image = Image(edgeImageNames[idx])
-                    let imageEdgeSize = 20.0
-                    edge.x -= imageEdgeSize / 2
-                    edge.y -= imageEdgeSize / 2
-                    let rect = CGRect(origin: edge, size: CGSize(width:imageEdgeSize, height:imageEdgeSize))
-                    context.draw(image, in: rect)
-                }
+            for (var vertex, imageName) in zip(vertices, edgeImageNames) {
+                vertex.x -= imageEdgeSize / 2
+                vertex.y -= imageEdgeSize / 2
+                let rect = CGRect(origin: vertex, size: CGSize(width:imageEdgeSize, height:imageEdgeSize))
+                context.draw(Image(imageName), in: rect)
             }
         }.navigationBarTitle("Radar Chart")
     }
     
-    private func calculateEdgePoints(rect: CGRect, categories: Int) -> [CGPoint] {
-        var edgeVertices: [CGPoint] = []
+    private func calculateVertices(rect: CGRect) -> [CGPoint] {
+        var vertices: [CGPoint] = []
         
         let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - radiusBuffer
-        for category in 1 ... categories {
-            let edgePoint = CGPoint(x: rect.midX + cos(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius,
-                                    y: rect.midY + sin(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius)
-            edgeVertices.append(edgePoint)
+        for angle in angles {
+            vertices.append(CGPoint(x: rect.midX + CGFloat(cos(angle)) * radius,
+                                   y: rect.midY + CGFloat(sin(angle)) * radius))
         }
         
-        return edgeVertices
+        return vertices
     }
     
     func radarChartGridPath(in rect: CGRect, categories: Int) -> Path {
@@ -69,20 +74,19 @@ struct RadarChart: View {
         let stride = radius / CGFloat(divisions)
         var path = Path()
         
-        for category in 1 ... categories {
+        for vertex in calculateVertices(rect: rect) {
             path.move(to: CGPoint(x: rect.midX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.midX + cos(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius,
-                                     y: rect.midY + sin(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * radius))
+            path.addLine(to: vertex)
         }
         
         for step in 1 ... divisions {
             let rad = CGFloat(step) * stride
-            path.move(to: CGPoint(x: rect.midX + cos(-.pi / 2) * rad,
-                                  y: rect.midY + sin(-.pi / 2) * rad))
+            path.move(to: CGPoint(x: rect.midX + CGFloat(cos(radialOffset)) * rad,
+                                  y: rect.midY + CGFloat(sin(radialOffset)) * rad))
             
-            for category in 1 ... categories {
-                path.addLine(to: CGPoint(x: rect.midX + cos(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * rad,
-                                         y: rect.midY + sin(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * rad))
+            for angle in angles {
+                path.addLine(to: CGPoint(x: rect.midX + CGFloat(cos(angle)) * rad,
+                                         y: rect.midY + CGFloat(sin(angle)) * rad))
             }
         }
         
@@ -90,24 +94,28 @@ struct RadarChart: View {
     }
     
     func radarChartPath(in rect: CGRect) -> Path {
-        if data.reduce(0, +) == 0 {
-            return Path()
+        var maximum : Double = data.max()!
+        if maximum == 0 {
+            // there is no data to display, but we still want to draw the inner circle
+            // maximum must be any value so that we don't get a divide by zero error
+            maximum = 1
         }
-         
-        let maximum : Double = data.max()!
         
-        let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - radiusBuffer
+        let outterRadius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - radiusBuffer
+        let innerRadius = 0.1 * outterRadius
         var path = Path()
+        let a = rect.midX
+        let b = rect.midY
         
-        for (index, entry) in data.enumerated() {
+        for (index, (entry, angle)) in zip(data, angles).enumerated() {
+            let scale = CGFloat(entry / maximum) * (outterRadius - innerRadius)
+            let x = a + (innerRadius + scale) * CGFloat(cos(angle))
+            let y = b + (innerRadius + scale) * CGFloat(sin(angle))
             switch index {
             case 0:
-                path.move(to: CGPoint(x: rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius,
-                                      y: rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius))
-                
+                path.move(to: CGPoint(x: x, y: y))
             default:
-                path.addLine(to: CGPoint(x: rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius,
-                                         y: rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius))
+                path.addLine(to: CGPoint(x: x, y: y))
             }
         }
         path.closeSubpath()
